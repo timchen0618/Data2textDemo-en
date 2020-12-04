@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+<!-- {% block css %}{% endblock %} -->
+
+{% block table_content %}
+
+
+<form action="/?product=submit" method="post">
+  <!-- <div class="inputbox">
+    {{ form.inputtext.label }}<br>
+    {{ form.inputtext(class_="inputtext") }}
+    {% for error in form.inputtext.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+  </div> -->
+
+  {% for k, v in table %}
+  <div class="row no-gutters">
+    <div class="col">
+      <input type="text" class="form-control font-weight-bold rounded-0" value="{{ k }}" name="attr-{{ loop.index0 }}">                   
+    </div>
+    <div class="col">
+      <input type="text" class="form-control rounded-0" value="{{ v }}" name="value-{{ loop.index0 }}">                          
+    </div>
+  </div>
+  {% endfor %}
+  {% if table %}
+  <button type="submit" class="btn btn-primary mt-3 mb-1">Submit</button>
+  {% endif %}
+  <!-- <p> {{ form.submit(class="btn btn-primary") }} </p> -->
+</form>
+
+{% endblock %}

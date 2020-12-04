@@ -1,0 +1,80 @@
+:root{
+    --background-blue: #b0d8eb;
+}
+
+.inputtext{
+    height: 40px;
+    width: 500px;
+    font-size: 15px;
+}
+.submit{
+    height: 30px;
+    width: 55px;
+    font-size: auto;
+}
+
+
+
+.content {
+    /*display: flex;*/
+    /*margin: 20px;*/
+    /*border: 5px solid black;*/
+    /*height: auto;*/
+    /*flex-wrap: wrap;*/
+}
+
+
+.tablearea .select {
+    width: 90%;
+    /*padding: 5px;*/
+    /*margin: 10px;*/
+    /*border: 1px solid gray;*/
+    /*border: 0px;*/
+    /*display: block;*/
+    /*background-color: var(--background-blue);*/
+}
+
+.tablearea .attribute{
+    width: 90%;
+    height: auto;
+    padding: 0px;
+    margin: 20px 0 0 0;
+    /*border: 1px solid gray;*/
+    /*display: block;*/
+    /*background-color: var(--background-blue);*/
+}
+table th td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.card-body.attribute-body {
+    /*padding: 10px 0 0 0;*/
+}
+
+.card-header.tableheader{
+    background-color: var(--background-blue);
+    font-family: courier;
+}
+
+.description {
+    /*height: 200px;*/
+    /*padding: 5px;*/
+    /*border: 1px solid gray;*/
+    /*border: 1px solid red;*/
+    /*display: inline-block;*/
+    background-color: var(--background-blue);
+}
+
+
+.btn-group.mr-2 a {
+    width: auto;
+    font-size: 12px;
+    float: left;
+
+}
+
+.btn-toolbar {
+    margin: 0px;
+    padding: 0px;
+}
