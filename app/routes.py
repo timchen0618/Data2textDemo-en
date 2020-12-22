@@ -31,6 +31,7 @@ def index():
     matched_slots = []
     sents = []
     matched_sentences = []
+    match_or_not = []
     # if form.validate_on_submit():
     #     print('fff')
     #     return render_template('index.html', form=form, table=tuples, description=description, product_list=NAMES)
@@ -66,18 +67,21 @@ def index():
                 for l in matches:
                     matched_slots += l[1]
                 matched_sentences = [l[2] for l in matches]
+                for l in sents:
+                    if l in matched_sentences:
+                        match_or_not.append(False)
+                    else:
+                        match_or_not.append(True)
                 print(matched_slots)
                 print('sssssss')
                 print(matched_sentences)
                 print(sents)
-                a = set(matched_sentences)
-                b = set(sents)
-                print(a.union(b))
+
         tuples = list(table.items())
-        return render_template('index.html', form=form, table=tuples, description=sents, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences)
+        return render_template('index.html', form=form, table=tuples, description=sents, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences, match_or_not=match_or_not)
 
     tuples = list(table.items())
-    return render_template('index.html', form=form, table=tuples, description=sents, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences)
+    return render_template('index.html', form=form, table=tuples, description=sents, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences, match_or_not=match_or_not)
 
 @app.route('/attr', methods=['GET', 'POST'])
 def attr():

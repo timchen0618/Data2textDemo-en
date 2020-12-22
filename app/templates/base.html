@@ -71,8 +71,8 @@
                 <div class="card-body">
                     <!-- <p> {{ description }} </p> -->
                     <p>
-                    {% for l in description %}
-                      {% if l in mateched_sents %}
+                    {% for i, l in enumerate(description) %}
+                      {% if match_or_not[i] %}
                         <mark> {{ l }} </mark>
                       {% else %}
                         {{ l }}
