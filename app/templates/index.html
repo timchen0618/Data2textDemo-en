@@ -15,12 +15,16 @@
   </div> -->
 
   {% for k, v in table %}
+  {% if k in matched_slots %}
+    {% set bg = 'bg-warning' %}
+  {% else %}
+    {% set bg = 'bg-white' %}
   <div class="row no-gutters">
     <div class="col">
-      <input type="text" class="form-control font-weight-bold rounded-0" value="{{ k }}" name="attr-{{ loop.index0 }}">                   
+      <input type="text" class="form-control font-weight-bold rounded-0 {{ bg }}" value="{{ k }}" name="attr-{{ loop.index0 }}">                   
     </div>
     <div class="col">
-      <input type="text" class="form-control rounded-0" value="{{ v }}" name="value-{{ loop.index0 }}">                          
+      <input type="text" class="form-control rounded-0 {{ bg }}" value="{{ v }}" name="value-{{ loop.index0 }}">                          
     </div>
   </div>
   {% endfor %}
