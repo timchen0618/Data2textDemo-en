@@ -60,7 +60,8 @@ def index():
                 description = generator.test(table) 
                 print(description)
                 matches = match(table, description)
-                matched_slots = [l[1] for l in matches]
+                matched_slots = matches[0][1]
+                print(matched_slots)
         tuples = list(table.items())
         return render_template('index.html', form=form, table=tuples, description=description, product_list=NAMES, matched_slots=matched_slots)
 
