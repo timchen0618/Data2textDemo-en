@@ -69,6 +69,7 @@ def index():
                 print(matched_slots)
                 print('sssssss')
                 print(matched_sentences)
+                print(description)
         tuples = list(table.items())
         return render_template('index.html', form=form, table=tuples, description=sents, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences)
 

@@ -72,11 +72,11 @@
                     <!-- <p> {{ description }} </p> -->
                     <p>
                     {% for l in description %}
-                    {% if l in mateched_sents %}
-                      <mark> {{ l }} </mark>
-                    {% else %}
-                      {{ l }}
-                    {% endif %}
+                      {% if l in mateched_sents %}
+                        <mark> {{ l }} </mark>
+                      {% else %}
+                        {{ l }}
+                      {% endif %}
                     {% endfor %}
                     </p>
                 </div>
