@@ -69,9 +69,9 @@ def index():
                 matched_sentences = [l[2] for l in matches]
                 for l in sents:
                     if l in matched_sentences:
-                        match_or_not.append(False)
-                    else:
                         match_or_not.append(True)
+                    else:
+                        match_or_not.append(False)
                 print(matched_slots)
                 print('sssssss')
                 print(matched_sentences)
