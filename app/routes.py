@@ -70,6 +70,9 @@ def index():
                 print('sssssss')
                 print(matched_sentences)
                 print(sents)
+                a = set(matched_sentences)
+                b = set(sents)
+                print(a.union(b))
         tuples = list(table.items())
         return render_template('index.html', form=form, table=tuples, description=sents, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences)
 
