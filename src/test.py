@@ -12,6 +12,8 @@ from torch.utils.data import DataLoader
 from transformers import T5Model, T5ForConditionalGeneration, T5Tokenizer
 import logging
 
+os.environ['CUDA_VISIBLE_DEVICES']="1"
+
 all_slots = [
 'Brand Name', 
 'Batteries Included?', 
@@ -104,6 +106,7 @@ class Generator(object):
             t5_model = T5Model.from_pretrained('t5-base')
             self.model = GenerationModel(t5_model)
         self.load_checkpoint()
+        self.model = self.model.cuda()
 
     def _generate_one_step(self, input_ids):
         if self._condition_generation:
@@ -137,11 +140,12 @@ class Generator(object):
 
         input_str = ''.join(['<'+k+'> '+v+' </'+k+'>\n' for k, v in table.items()])
         input_ids = self.tokenize(input_str).squeeze(0)
+        input_ids = input_ids.cuda()
         print('input_ids', input_ids.size())
         outputs = self._generate_one_step(input_ids.unsqueeze(0))
         print('outputs', outputs.size())
 
-        l = self.tokenizer.decode(outputs.squeeze(0).long().tolist())
+        l = self.tokenizer.decode(outputs.squeeze(0).detach().cpu().long().tolist())
         return l
 
 
