@@ -19,6 +19,7 @@
     {% set bg = 'bg-warning' %}
   {% else %}
     {% set bg = 'bg-white' %}
+  {% endif %}
   <div class="row no-gutters">
     <div class="col">
       <input type="text" class="form-control font-weight-bold rounded-0 {{ bg }}" value="{{ k }}" name="attr-{{ loop.index0 }}">                   
