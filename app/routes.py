@@ -30,6 +30,7 @@ def index():
     print('damn')
     matched_slots = []
     sents = []
+    matched_sentences = []
     # if form.validate_on_submit():
     #     print('fff')
     #     return render_template('index.html', form=form, table=tuples, description=description, product_list=NAMES)
