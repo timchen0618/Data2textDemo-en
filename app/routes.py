@@ -2,7 +2,7 @@ from app import app
 from flask import render_template, flash, request, redirect, url_for
 from app.forms import LoginForm
 from src.test import Generator, all_slots
-from src.match import match
+from src.match import match, split_sent
 # from app.control import ctrl
 import json
 
@@ -59,14 +59,16 @@ def index():
                 print('table', table)
                 description = generator.test(table) 
                 print(description)
-                matches = match(table, description)
+                sents = split_sent(description)
+                matches = match(table, sents)
                 matched_slots = matches[0][1]
+                matched_sentences = matches[0][2]
                 print(matched_slots)
         tuples = list(table.items())
-        return render_template('index.html', form=form, table=tuples, description=description, product_list=NAMES, matched_slots=matched_slots)
+        return render_template('index.html', form=form, table=tuples, description=sents, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences)
 
     tuples = list(table.items())
-    return render_template('index.html', form=form, table=tuples, description=description, product_list=NAMES, matched_slots=matched_slots)
+    return render_template('index.html', form=form, table=tuples, description=sents, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences)
 
 @app.route('/attr', methods=['GET', 'POST'])
 def attr():

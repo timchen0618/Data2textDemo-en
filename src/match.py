@@ -13,9 +13,9 @@ def split_sent(l):
     sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')    
     return sent_detector.tokenize(l.strip('\n').strip())
 
-def match(slots, description):
+def match(slots, sents):
 
-    sents = split_sent(description)
+    
     template_per_instance = []
     matches = []
     for sent in sents:

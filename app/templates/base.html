@@ -69,8 +69,16 @@
                   Description
                 </div>
                 <div class="card-body">
-                    <p> {{ description }} </p>
-                    <!-- <h1>{{ name }}</h1> -->
+                    <!-- <p> {{ description }} </p> -->
+                    <p>
+                    {% for l in description %}
+                    {% if l in mateched_sents %}
+                      <mark> {{ l }} </mark>
+                    {% else %}
+                      {{ l }}
+                    {% endif %}
+                    {% endfor %}
+                    </p>
                 </div>
               
               </div>
