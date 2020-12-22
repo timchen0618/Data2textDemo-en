@@ -71,8 +71,8 @@
                 <div class="card-body">
                     <!-- <p> {{ description }} </p> -->
                     <p>
-                    {% for i, l in enumerate(description) %}
-                      {% if match_or_not[i] %}
+                    {% for l in description %}
+                      {% if match_or_not[loop.index0] %}
                         <mark> {{ l }} </mark>
                       {% else %}
                         {{ l }}
