@@ -63,8 +63,9 @@ def index():
                 print(description)
                 sents = split_sent(description)
                 matches = match(table, sents)
-                matched_slots = matches[0][1]
-                matched_sentences = matches[0][2]
+                for l in matches:
+                    matched_slots += l[1]
+                matched_sentences = [l[2] for l in matches]
                 print(matched_slots)
                 print('sssssss')
                 print(matched_sentences)
