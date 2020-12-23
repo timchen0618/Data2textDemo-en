@@ -26,9 +26,7 @@ def match(slots, sents):
         m = 0
         for slot_name, value in slots.items():
             if value not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']:
-                print('value', value)
                 n_grams = [len(value.split(' '))]
-                print('n_grams', n_grams)
                 for n_gram in n_grams:
                     start = 0
                     end = n_gram
@@ -36,7 +34,6 @@ def match(slots, sents):
                         if end > len(sent_copy):
                             break
                         cand = [l.lower() for l in sent_copy[start:end]]
-                        print('cand', cand)
                         # matching 
                         if cand == value.lower().split(' '):
                             m+=1
@@ -141,7 +138,8 @@ def highlight(sents, matched_string):
                 start = i
         segments.append(sent[start:])
         segments_hilight.append(match[-1])
-
+    print('segments', segments)
+    print('segments_hilight', segments_hilight)
     return segments, segments_hilight
     # return matches_or_not
 
