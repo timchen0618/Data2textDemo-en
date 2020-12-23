@@ -125,6 +125,7 @@ def highlight(sents, matched_string):
         words = nltk.word_tokenize(sent.strip('\n').strip())
 
         for string in matched_string:
+            string = ' '.join(string)
             start = sent.find(string)
             if start != -1:
                 print('string', string)
@@ -164,6 +165,6 @@ if __name__ == '__main__':
         c = []
         a = match(data[i], sents)
         for mmm in a:
-            c += [l for b in mmm[3] for l in b]
+            c += [b for b in mmm[3]]
         segments, match_or_not_v2 = highlight(sents, c)
         assert False
