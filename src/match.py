@@ -127,14 +127,24 @@ def highlight(sents, matched_string):
         for string in matched_string:
             start = sent.find(string)
             if start != -1:
+                print('string', string)
+                print('start', start)
                 end = start + len(string)
-                match[start:end] = [True for _ in range(end-start)]
+                print('end', end)
+                
+                for i in range(start, end):
+                    match[i] = True
         prev = match[0]
+        print('match', match)
         start = 0
         for i in range(1, len(match)):
             if match[i] != prev:
-                segments.append(sents[start:i])
-                segments_hilight.append(prev)
+                print('start', start)
+                print('i', i)
+                if sent[start:i] != ' ':
+                    segments.append(sent[start:i].strip())
+                    print('sent', sent[start:i].strip())
+                    segments_hilight.append(prev)
                 start = i
                 prev = match[i]
         segments.append(sent[start:])
@@ -154,4 +164,5 @@ if __name__ == '__main__':
         a = match(data[i], sents)
         for mmm in a:
             c += [l for b in mmm[3] for l in b]
+        segments, match_or_not_v2 = highlight(sents, c)
         assert False
