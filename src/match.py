@@ -133,9 +133,10 @@ def highlight(sents, matched_string):
         start = 0
         for i in range(1, len(match)):
             if match[i] != prev:
-                segments.append(sent[start:i])
+                segments.append(sents[start:i])
                 segments_hilight.append(prev)
                 start = i
+                prev = match[i]
         segments.append(sent[start:])
         segments_hilight.append(match[-1])
     print('segments', segments)
