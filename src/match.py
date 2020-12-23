@@ -151,6 +151,7 @@ def highlight(sents, matched_string):
         segments_hilight.append(match[-1])
     print('segments', segments)
     print('segments_hilight', segments_hilight)
+    print('matched_string', matched_string)
     return segments, segments_hilight
     # return matches_or_not
 
