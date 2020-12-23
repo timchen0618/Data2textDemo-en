@@ -138,7 +138,7 @@ def highlight(sents, matched_string):
         print('match', match)
         start = 0
         for i in range(1, len(match)):
-            if match[i] != prev:
+            if match[i] != prev and sent[i] != ' ':
                 print('start', start)
                 print('i', i)
                 if sent[start:i] != ' ':
