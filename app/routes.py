@@ -2,7 +2,7 @@ from app import app
 from flask import render_template, flash, request, redirect, url_for
 from app.forms import LoginForm
 from src.test import Generator, all_slots
-from src.match import match, split_sent
+from src.match import match, split_sent, highlight
 # from app.control import ctrl
 import json
 
