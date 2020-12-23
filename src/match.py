@@ -124,7 +124,7 @@ def highlight(sents, matched_string):
             start = sent.find(string)
             if start != -1:
                 end = start + len(string)
-                match[start:end] = True
+                match[start:end] = [True for _ in range(end-start)]
         matches_or_not.append(match)
     return matches_or_not
 
