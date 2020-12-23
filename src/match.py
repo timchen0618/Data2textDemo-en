@@ -126,6 +126,7 @@ def highlight(sents, matched_string):
 
         for string in matched_string:
             string = ' '.join(string)
+            print('string', string)
             start = sent.find(string)
             if start != -1:
                 print('string', string)
