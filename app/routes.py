@@ -34,6 +34,7 @@ def index():
     match_or_not = []
     matched_string = []
     match_or_not_v2 = []
+    segments = []
 
     # if form.validate_on_submit():
     #     print('fff')
@@ -73,7 +74,7 @@ def index():
                 
                 for mmm in matches:
                     matched_string += [l for b in mmm[3] for l in b]
-                match_or_not_v2 = highlight(sents, matched_string)
+                segments, match_or_not_v2 = highlight(sents, matched_string)
 
 
                 for l in sents:
@@ -87,10 +88,10 @@ def index():
                 print(sents)
 
         tuples = list(table.items())
-        return render_template('index.html', form=form, table=tuples, description=sents, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences, match_or_not=match_or_not_v2)
+        return render_template('index.html', form=form, table=tuples, description=segments, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences, match_or_not=match_or_not_v2)
 
     tuples = list(table.items())
-    return render_template('index.html', form=form, table=tuples, description=sents, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences, match_or_not=match_or_not_v2)
+    return render_template('index.html', form=form, table=tuples, description=segments, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences, match_or_not=match_or_not_v2)
 
 @app.route('/attr', methods=['GET', 'POST'])
 def attr():

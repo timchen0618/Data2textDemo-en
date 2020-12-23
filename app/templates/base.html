@@ -71,16 +71,12 @@
                 <div class="card-body">
                     <!-- <p> {{ description }} </p> -->
                     <p>
-                    {% for sent in description %}
-                      {% set outer_loop = loop %}
-                      {% set match = match_or_not[outer_loop.index0] %}
-                      {% for l in sent %}
-                        {% if match[loop.index0] %}
-                          <mark> {{ l }} </mark>
-                        {% else %}
-                          {{ l }}
-                        {% endif %}
-                      {% endfor %}
+                    {% for l in description %}
+                      {% if match_or_not[loop.index0] %}
+                        <mark> {{ l }} </mark>
+                      {% else %}
+                        {{ l }}
+                      {% endif %}
                     {% endfor %}
                     </p>
                 </div>

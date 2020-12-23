@@ -117,16 +117,33 @@ def match(slots, sents):
 def highlight(sents, matched_string):
     # N sentences
     # N lists of True or False
+
     matches_or_not = []
+    segments = []
+    segments_hilight = []
     for sent in sents:
+        
         match = [False for _ in sent]
+
+        words = nltk.word_tokenize(sent.strip('\n').strip())
+
         for string in matched_string:
             start = sent.find(string)
             if start != -1:
                 end = start + len(string)
                 match[start:end] = [True for _ in range(end-start)]
-        matches_or_not.append(match)
-    return matches_or_not
+        prev = match[0]
+        start = 0
+        for i in range(1, len(match)):
+            if match[i] != prev:
+                segments.append(sent[start:i])
+                segments_hilight.append(prev)
+                start = i
+        segments.append(sent[start:])
+        segments_hilight.append(match[-1])
+
+    return segments, segments_hilight
+    # return matches_or_not
 
 if __name__ == '__main__':
     from tqdm import trange
