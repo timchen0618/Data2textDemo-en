@@ -73,7 +73,7 @@ def index():
                 matched_sentences = [l[2] for l in matches]
                 
                 for mmm in matches:
-                    matched_string += [l for b in mmm[3] for l in b]
+                    matched_string += [b for b in mmm[3]]
                 segments, match_or_not_v2 = highlight(sents, matched_string)
 
 
