@@ -14,6 +14,7 @@ import logging
 
 os.environ['CUDA_VISIBLE_DEVICES']="1"
 
+# all possible slots
 all_slots = [
 'Brand Name', 
 'Batteries Included?', 
@@ -90,9 +91,11 @@ class Generator(object):
         self.word2id = self.tokenizer.get_vocab()
         self.bos = self.word2id[self.tokenizer.pad_token]
 
+        #max length
         self.src_max_len = 512
         self.tgt_max_len = 200
         print('preparing model...')
+        
         # prepare model
         self._saved_checkpoint = checkpoint
         self.prepare_model(condition_generation=condition_generation)
@@ -138,13 +141,14 @@ class Generator(object):
 
         self.model.eval()
 
+        # input table string
         input_str = ''.join(['<'+k+'> '+v+' </'+k+'>\n' for k, v in table.items()])
-        input_ids = self.tokenize(input_str).squeeze(0)
+        input_ids = self.tokenize(input_str).squeeze(0)  # tokenization
         input_ids = input_ids.cuda()
-        print('input_ids', input_ids.size())
-        outputs = self._generate_one_step(input_ids.unsqueeze(0))
-        print('outputs', outputs.size())
 
+        outputs = self._generate_one_step(input_ids.unsqueeze(0))
+
+        # decode ids back to token
         l = self.tokenizer.decode(outputs.squeeze(0).detach().cpu().long().tolist())
         return l
 

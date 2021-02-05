@@ -6,8 +6,9 @@ from src.match import match, split_sent, highlight
 # from app.control import ctrl
 import json
 
+# some selected example table for user to click on 
 TABLE = json.load(open('data/new_table.json'))
-
+# names displayed on the website for the examples
 NAMES = ['Dell Laptop Latitude E6440', 
          'Dell Vostro 3458', 
          'Apple iMac 27', 
@@ -17,17 +18,18 @@ NAMES = ['Dell Laptop Latitude E6440',
          'Asus Z91', 
          'Lenovo T530'
          ]
+# init generator
 generator = Generator(checkpoint='src/checkpoint.pth')
 print('finish loading generator')
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    form = LoginForm()
-    product = request.args.get('product')
+    form = LoginForm() 
+    product = request.args.get('product')  # the id of selected example product
     table = {}
     description = ""
-    print('damn')
+
     matched_slots = []
     sents = []
     matched_sentences = []
@@ -36,44 +38,42 @@ def index():
     match_or_not_v2 = []
     segments = []
 
-    # if form.validate_on_submit():
-    #     print('fff')
-    #     return render_template('index.html', form=form, table=tuples, description=description, product_list=NAMES)
-
     try:
         print('pro', product)
-        num = int(product)
+        num = int(product)                 # the id of selected example product -> if this line works, means it is int
+                                           # means user have clicked on some example -> need to display the attr table
+        # get the table and example name
         table = TABLE[num-1]
         name = NAMES[num-1]
         global_table = table
     except:
         if product == 'submit':
-            print('ggg')
             ### handle table here ###
-            
-            # print(request.form)
             num_form = (len(request.form))//2
             table = {}
-            form_table = request.form.to_dict(flat=False)
-            # print(form_table)
-            for i in range(num_form):
-                # print(form_table['attr-%d'%i], form_table['value-%d'%i])
+            form_table = request.form.to_dict(flat=False)   # convert table into a dictionary
+
+            # get the input table through a form (displayed as a modifiable table)
+            # pass to python code using request.form
+            for i in range(num_form):     # fill the attribute and value to table
                 if not request.form['attr-%d'%i]:
                     continue
                 table[request.form['attr-%d'%i]] = request.form['value-%d'%i]
 
             if table:
-                print('table', table)
+                ######################################
+                # generate a description based on the table
+                ######################################
                 description = generator.test(table) 
-                print(description)
-                sents = split_sent(description)
+
+                sents = split_sent(description)   # split the description into sentences
                 matches = match(table, sents)
                 for l in matches:
                     matched_slots += l[1]
                 matched_sentences = [l[2] for l in matches]
                 
                 for mmm in matches:
-                    matched_string += [b for b in mmm[3]]
+                    matched_string += [b for b in mmm[3]]  # mmm[3] -> matched string per sentence in description
                 segments, match_or_not_v2 = highlight(sents, matched_string)
 
 
@@ -93,6 +93,7 @@ def index():
     tuples = list(table.items())
     return render_template('index.html', form=form, table=tuples, description=segments, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences, match_or_not=match_or_not_v2)
 
+# display all possible attributes
 @app.route('/attr', methods=['GET', 'POST'])
 def attr():
     return render_template('attr.html', slots=all_slots)

@@ -5,15 +5,14 @@
       {% else %}
       <title>Data2Text Demo</title>
       {% endif %}
+      <!-- bootstrap&css -->
       <link rel="stylesheet" type="text/css" href=".{{ url_for('static', filename='css/main.css') }}">
-      <!-- <link rel="stylesheet" type="text/css" href=".{{ url_for('static', filename='css/block.css') }}"> -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
       <link rel="icon" href="data:;base64,=">
     </head>
 
 
     <body>
-        <!-- <hr> -->
         <br>
         {% if title %}
         <h1 style padding="10px">{{ title }}</h1>
@@ -21,12 +20,11 @@
         <h1> &nbsp &nbsp Data2Text Demo </h1>
         {% endif %}
         
-
         <hr>
 
         <div class="container-fluid content px-lg-5 py-3">
           <div class="row"> 
-            <div class="col-5 tablearea">
+            <div class="col-5 tablearea">   <!-- table area: 可以選example的按鈕和表格的顯示 -->
 
               <!-- select which product to describe -->
               <div class="card select">
@@ -52,24 +50,19 @@
                       Attribute  (<a onclick="window.open('.{{ url_for('attr') }}', 'newwindow', 'width=700, height=600')" class="btn btn-link"> all attributes </a>)
                 </div>
                 <div class="card-body attribute-body">
-                  <!-- <table class="table table-hover"><tbody>
-                    {% for k, v in table %}
-                    <tr> <th> {{ k }} </th> <td> {{ v }} </td> </tr> 
-                    {% endfor %}
-                  </tbody></table> -->
                   {% block table_content %}{% endblock %}
                 </div>
 
               </div>
             </div>
 
+            <!-- display generated description -->
             <div class="col">
               <div class="card description">
                 <div class="card-header">
                   Description
                 </div>
                 <div class="card-body">
-                    <!-- <p> {{ description }} </p> -->
                     <p>
                     {% for l in description %}
                       {% if match_or_not[loop.index0] %}
@@ -84,16 +77,9 @@
               </div>
             </div>
 
-
           </div>
         </div>
-        
 
-        
-        
-
-
-        <!-- {% block content %}{% endblock %} -->
 
 
     </section>

@@ -1,4 +1,4 @@
-import os
+mimport os
 import sys
 import re
 import json
@@ -14,13 +14,16 @@ def split_sent(l):
     return sent_detector.tokenize(l.strip('\n').strip())
 
 def match(slots, sents):
-
+    '''
+        args:
+            slots: all attributes in the table
+            sents: descriptions
+    '''
     template_per_instance = []
     matches = []
     for sent in sents:
         sent_copy = nltk.word_tokenize(sent.strip('\n').strip())
         raw_template = sent
-        # print('raw', raw_template)
         matched_slots = []
         matched_string = []
         m = 0
@@ -83,10 +86,7 @@ def match(slots, sents):
 
                             # matching 
                             if float(edit_distance(cand, value.lower())) < 0.3 * len(value):
-                                # see_file.write(cand)
-                                # see_file.write(' | ')
-                                # see_file.write(value)
-                                # see_file.write('\n')
+                                
                                 m += 1
                                 matched_string.append(sent_copy[start:end])
                                 sent_copy[start:end] = ('<'+slot_name+'>').split(' ')
@@ -107,15 +107,20 @@ def match(slots, sents):
         start, end = sent_copy.find('<'), sent_copy.find('>')
         if matched_slots:
             template_per_instance.append((sent_copy, matched_slots, raw_template, matched_string))
-
+    '''
+        template_per_instance, each element contains:
+            1. original sentence
+            2. matched_slots (should be highlighted)
+            3. matched template
+            4. matched string in the description (should be highlighted)
+    '''
     return template_per_instance
     
 
 def highlight(sents, matched_string):
     # N sentences
     # N lists of True or False
-
-    matches_or_not = []
+    print('matchcccccc', matched_string)
     segments = []
     segments_hilight = []
     for sent in sents:
@@ -155,7 +160,6 @@ def highlight(sents, matched_string):
     print('segments_hilight', segments_hilight)
     print('matched_string', matched_string)
     return segments, segments_hilight
-    # return matches_or_not
 
 if __name__ == '__main__':
     from tqdm import trange
