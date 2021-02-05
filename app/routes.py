@@ -30,13 +30,13 @@ def index():
     table = {}
     description = ""
 
-    matched_slots = []
-    sents = []
+    matched_slots = []   # matched slots -> needed to highlight the table
+    sents = []           # sentences
     # matched_sentences = []
     # match_or_not = []
-    matched_string = []
-    segment_highlight_or_not = []
-    segments = []
+    matched_string = []  # each element in a list is the matched words in a sentence
+    segment_highlight_or_not = [] # whether a segment is highlighted or not
+    segments = []        # word segments
 
     try:
         print('pro', product)
@@ -69,7 +69,7 @@ def index():
                 sents = split_sent(description)   # split the description into sentences
                 matches = match(table, sents)
                 for l in matches:
-                    matched_slots += l[1]
+                    matched_slots += l[1]     
                 # matched_sentences = [l[2] for l in matches]
                 
                 for mmm in matches:
