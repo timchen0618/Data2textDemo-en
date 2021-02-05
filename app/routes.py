@@ -32,10 +32,10 @@ def index():
 
     matched_slots = []
     sents = []
-    matched_sentences = []
-    match_or_not = []
+    # matched_sentences = []
+    # match_or_not = []
     matched_string = []
-    match_or_not_v2 = []
+    segment_highlight_or_not = []
     segments = []
 
     try:
@@ -70,28 +70,34 @@ def index():
                 matches = match(table, sents)
                 for l in matches:
                     matched_slots += l[1]
-                matched_sentences = [l[2] for l in matches]
+                # matched_sentences = [l[2] for l in matches]
                 
                 for mmm in matches:
                     matched_string += [b for b in mmm[3]]  # mmm[3] -> matched string per sentence in description
-                segments, match_or_not_v2 = highlight(sents, matched_string)
+                
+                '''
+                    split the whole description into many segments, and identify which segments should be highlighted
+                    segments: word sequence segments
+                    segments_hilight: bool, whether highlight (length equals to segments)
+                '''
+                segments, segment_highlight_or_not = highlight(sents, matched_string)
 
 
-                for l in sents:
-                    if l in matched_sentences:
-                        match_or_not.append(True)
-                    else:
-                        match_or_not.append(False)
+                # for l in sents:
+                #     if l in matched_sentences:
+                #         match_or_not.append(True)
+                #     else:
+                #         match_or_not.append(False)
                 print(matched_slots)
                 print('sssssss')
-                print(matched_sentences)
+                # print(matched_sentences)
                 print(sents)
 
         tuples = list(table.items())
-        return render_template('index.html', form=form, table=tuples, description=segments, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences, match_or_not=match_or_not_v2)
+        return render_template('index.html', form=form, table=tuples, description=segments, product_list=NAMES, matched_slots=matched_slots, match_or_not=segment_highlight_or_not)
 
     tuples = list(table.items())
-    return render_template('index.html', form=form, table=tuples, description=segments, product_list=NAMES, matched_slots=matched_slots, matched_sents=matched_sentences, match_or_not=match_or_not_v2)
+    return render_template('index.html', form=form, table=tuples, description=segments, product_list=NAMES, matched_slots=matched_slots, match_or_not=segment_highlight_or_not)
 
 # display all possible attributes
 @app.route('/attr', methods=['GET', 'POST'])

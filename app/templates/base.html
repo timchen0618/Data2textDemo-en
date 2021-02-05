@@ -64,7 +64,7 @@
                 </div>
                 <div class="card-body">
                     <p>
-                    {% for l in description %}
+                    {% for l in description %}  <!-- display segment by segment -->
                       {% if match_or_not[loop.index0] %}
                         <mark> {{ l }} </mark>
                       {% else %}

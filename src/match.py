@@ -120,20 +120,32 @@ def match(slots, sents):
 def highlight(sents, matched_string):
     # N sentences
     # N lists of True or False
+    '''
+        split the whole description into many segments, and identify which segments should be highlighted
+        segments: word sequence segments
+        segments_hilight: bool, whether highlight (length equals to segments)
+    '''
     print('matchcccccc', matched_string)
     segments = []
     segments_hilight = []
     for sent in sents:
         
-        match = [False for _ in sent]
+        match = [False for _ in sent]  # whether each character in the sentence is a match
 
         words = nltk.word_tokenize(sent.strip('\n').strip())
 
+        '''
+            for every matched string, find it in the sentence and label corresponding character as match
+            e.g. 
+                sent: 'The 27-inch iMac with Retina 5K display' 
+                matched_string: ['iMac']
+                match: [F F F F F F F F F F F F T T T T F F F F ....] (F -> False, T -> True)
+        '''
         for string in matched_string:
-            string = ' '.join(string)
+            string = ' '.join(string)  # concatenate the matched words of the same instance into a single string
             print('string', string)
-            start = sent.find(string)
-            if start != -1:
+            start = sent.find(string)  
+            if start != -1:            # if find some matched string in this sentence
                 print('string', string)
                 print('start', start)
                 end = start + len(string)
@@ -141,20 +153,25 @@ def highlight(sents, matched_string):
                 
                 for i in range(start, end):
                     match[i] = True
+        
         prev = match[0]
         print('match', match)
+        
         start = 0
         for i in range(1, len(match)):
-            if match[i] != prev and sent[i] != ' ':
+            # if encounter switch in boolearn value e.g. F->T (means the border of segment)
+            if match[i] != prev and sent[i] != ' ': # not label ' ' as highlight
                 print('start', start)
                 print('i', i)
                 if sent[start:i] != ' ':
-                    segments.append(sent[start:i].strip())
+                    segments.append(sent[start:i].strip())  # append segments into a list 
                     print('sent', sent[start:i].strip())
-                    segments_hilight.append(prev)
+                    segments_hilight.append(prev)           # append corresponding boolean value of the segments
                 start = i
                 prev = match[i]
-        segments.append(sent[start:])
+
+        # append the last segment
+        segments.append(sent[start:])      
         segments_hilight.append(match[-1])
     print('segments', segments)
     print('segments_hilight', segments_hilight)
