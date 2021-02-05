@@ -32,8 +32,6 @@ def index():
 
     matched_slots = []   # matched slots -> needed to highlight the table
     sents = []           # sentences
-    # matched_sentences = []
-    # match_or_not = []
     matched_string = []  # each element in a list is the matched words in a sentence
     segment_highlight_or_not = [] # whether a segment is highlighted or not
     segments = []        # word segments
@@ -70,7 +68,6 @@ def index():
                 matches = match(table, sents)
                 for l in matches:
                     matched_slots += l[1]     
-                # matched_sentences = [l[2] for l in matches]
                 
                 for mmm in matches:
                     matched_string += [b for b in mmm[3]]  # mmm[3] -> matched string per sentence in description
@@ -83,14 +80,8 @@ def index():
                 segments, segment_highlight_or_not = highlight(sents, matched_string)
 
 
-                # for l in sents:
-                #     if l in matched_sentences:
-                #         match_or_not.append(True)
-                #     else:
-                #         match_or_not.append(False)
                 print(matched_slots)
                 print('sssssss')
-                # print(matched_sentences)
                 print(sents)
 
         tuples = list(table.items())

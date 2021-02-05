@@ -60,16 +60,10 @@ def match(slots, sents):
 
                             # matching 
                             if float(edit_distance(cand, value.lower())) < 0.3 * len(value):
-                                # see_file.write('[Model_Num] ')
-                                # see_file.write(cand)
-                                # see_file.write(' | ')
-                                # see_file.write(value)
-                                # see_file.write('\n')
                                 m += 1
                                 matched_string.append(sent_copy[start:end])
                                 sent_copy[start:end] = ('<'+slot_name+'>').split(' ')
                                 matched_slots.append(slot_name)
-                                # see_item += 1
 
                             start += 1
                             end += 1
